@@ -10,9 +10,10 @@ class WordPiece:
     Its O(n) with respect both the `ntokens` and the total documents of `corpus`.
     """
     def __init__(self, corpus=None, ntokens=30_000, cleaning=None):
-        if (corpus is not None) and (cleaning is not None):
+        if (corpus is not None):
             # Cleaning Corpus
-            corpus = [cleaning(text) for text in corpus]
+            if (cleaning is not None):
+                corpus = [cleaning(text) for text in corpus]
 
             # Calculating the frequencies of each word (global statistics)
             self._word_freqs = defaultdict(lambda : 0)
