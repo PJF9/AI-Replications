@@ -1,4 +1,4 @@
-from Utils import draw_dot
+from Utils import draw_dot, topological_sorting
 from Value import Value
 
 ## Defining the expression L
@@ -33,15 +33,8 @@ draw_dot(o)
 
 # Setting the derivative of `o`` with respect of `o`` to 1, in order to start the process
 o.grad = 1
-o._backward()
-n._backward()
-x1w1_x2w2._backward()
-x1w1._backward()
-x2w2._backward()
-b._backward()  # leaf node, so doesn't do anything
-x1._backward() # leaf node, so doesn't do anything
-w1._backward() # leaf node, so doesn't do anything
-x2._backward() # leaf node, so doesn't do anything
-w2._backward() # leaf node, so doesn't do anything
+topo = topological_sorting(o)
+for n in reversed(topo):
+    n._backward()
 
 draw_dot(o)
