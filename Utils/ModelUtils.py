@@ -7,11 +7,12 @@ from timeit import default_timer as timer
 from tqdm import tqdm
 
 
-class ModelUtils:
+class ModelUtils(nn.Module):
     """ Expects model with __call__(x, y) that returns first logits and then loss """
     """ Also for NLP Tasks expect that the logits have already being pooled """
 
     def __init__(self, device, nclasses):
+        super().__init__()
         self.device = device
         self.nclasses = nclasses
 
