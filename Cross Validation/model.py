@@ -8,7 +8,7 @@ class TransformerEncoder(ModelUtils):
     ### Defining the Components of the Encoder
     class _SelfAttention(nn.Module):
         def __init__(self, embed_size, head_size, dropout):
-            super().__init__()
+            super().__init__(device, 2)
     
             self.query = nn.Linear(embed_size, head_size, bias=False)
             self.key = nn.Linear(embed_size, head_size, bias=False)
