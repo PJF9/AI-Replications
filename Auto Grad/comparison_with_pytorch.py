@@ -1,5 +1,6 @@
 import torch
 from Value import Value
+from Utils import draw_dot
 
 
 ## Using Pytorch
@@ -28,8 +29,9 @@ w2 = Value(1.0, label="w2")
 b = Value(6.88137, label="b")
 
 n = x1*w1 + x2*w2 + b
-o = torch.tanh(n)
+o = n.tanh()
 
 o.backward()
 
-draw_dot(o)
+d = draw_dot(o)
+d.view()

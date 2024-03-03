@@ -1,19 +1,6 @@
 from Utils import draw_dot
 from Value import Value
 
-## Defining the expression L
-a = Value(2.0, label='a')
-b = Value(-3.0, label='b')
-c = Value(10.0, label='c')
-
-e = a * b ; e.label = 'e'
-d = e + c ; d.label = 'd'
-
-f = Value(-2.0, label='f')
-L = d * f ; L.label = 'L'
-
-draw_dot(L)
-
 ## Backpropagation on a Neuron
 x1 = Value(2.0, label="x1")
 x2 = Value(0.0, label="x2")
@@ -29,8 +16,10 @@ n = x1w1_x2w2 + b ; n.label = "n"
 # Using as activation function the `tanh`
 o = n.tanh() ; o.label = 'o'
 
-draw_dot(o)
+d = draw_dot(o)
+d.view()
 
 o.backward()
 
-draw_dot(o)
+d = draw_dot(o)
+d.view()
