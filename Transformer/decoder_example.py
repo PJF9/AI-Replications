@@ -115,5 +115,5 @@ for epoch in range(1, EPOCHS+1):
 ### Generating Text (exactly 1_000 characters)
 idx = torch.zeros((1, 1), dtype=torch.long, device=device)
 
-with open("test.txt", "w") as f:
+with open("generated.txt", "w") as f:
     f.write(decoder(model.generate(idx, max_new_tokens=1_000)[0].tolist()))
