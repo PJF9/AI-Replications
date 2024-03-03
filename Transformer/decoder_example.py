@@ -43,9 +43,9 @@ def estimate_loss(model):
 BATCH_SIZE = 64         # the size of sample (in our case character tokens) to create batches 
 BLOCK_SIZE = 256        # the context length (the tokens that each batch will contain): using Attention those tokens are able to communicate
 EMBED_SIZE = 384        # the size of the embeddings for each token
-EPOCHS = 1_000          # the number of times we iterate all the batches in training
+EPOCHS = 2_000          # the number of times we iterate all the batches in training
 LR = 3e-4               # the learning rate of the optimizer: in our case AdamW
-EVAL_INTERVAL = 400     # every after those epochs we are evaluating the loss of the model
+EVAL_INTERVAL = 500     # every after those epochs we are evaluating the loss of the model
 EVAL_ITERS = 200        # for how many batches we should calculate the loss when evaluating the model
 NUM_HEADS = 6           # the number of Masked Self-Attention layers
 NUM_LAYERS = 6          # the number of Block Layer (each Block contains one Mulit-Head Attention and one Feed-Forward layer)
@@ -66,7 +66,7 @@ vocab_size = len(vocab)
 char_to_int = {ch: i for i, ch in enumerate(vocab)}
 int_to_char = {i: ch for i, ch in enumerate(vocab)}
 encoder = lambda s: [char_to_int[c] for c in s]
-decoder = lambda l: "".join([int_to_char[i] for i in l])
+decoder = lambda l: "".join([int_to_char[i] if i != 0 else '' for i in l])
 
 ### Tokenizing the Dataset
 tokenized_ds = torch.tensor(encoder(text_ds), dtype=torch.long, device=device) # `torch.int64`
@@ -113,7 +113,7 @@ for epoch in range(1, EPOCHS+1):
 
 
 ### Generating Text (exactly 1_000 characters)
-idx = torch.zeros((1, 1), dtype=torch.long, device=device)
+idx = torch.zeros((1, BLOCK_SIZE), dtype=torch.long, device=device)
 
 with open("generated.txt", "w") as f:
     f.write(decoder(model.generate(idx, max_new_tokens=1_000)[0].tolist()))
