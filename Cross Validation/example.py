@@ -1,6 +1,5 @@
-from ...Tokenizers.Wordpiece import WordPiece
-from model import TransformerEncoder
-from cross_validation import cross_validation
+from model import TransformerEncoder, WordPiece
+from cross_validation import cross_validation, TorchLoader
 
 import torch
 from torch import optim
@@ -86,8 +85,8 @@ model = TransformerEncoder(
 
 opt = optim.AdamW(model.parameters(), lr=1e-3)
 
-EPOCHS = 5
+EPOCHS = 2
 
 res = model.fit_cv(EPOCHS, train_ds, opt, cross_validation, valid_prop=0.05, batch_size=1)
 
-model.evaluate(TorchLoader(test_ds, batch_size=32, shuffle=False))
+print(model.evaluate(TorchLoader(test_ds, batch_size=32, shuffle=False)))

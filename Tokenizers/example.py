@@ -1,4 +1,4 @@
-from Wordpiee import WordPiece
+from Wordpiece import WordPiece
 from Unigram import Unigram
 
 

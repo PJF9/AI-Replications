@@ -52,4 +52,4 @@ def cross_validation(ds, valid_prop, batch_size):
     valid_size = int(len(ds) * valid_prop)
     ridx = randint(0, len(ds) - valid_size)
 
-    return (TorchLoader(ds[ridx: ridx + valid_size], batch_size=batch_size, shuffle=False), Loader(ds[:ridx] + ds[ridx + valid_size:], batch_size=batch_size, shuffle=True))
+    return (TorchLoader(ds[ridx: ridx + valid_size], batch_size=batch_size, shuffle=False), TorchLoader(ds[:ridx] + ds[ridx + valid_size:], batch_size=batch_size, shuffle=True))

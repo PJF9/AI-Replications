@@ -1,3 +1,9 @@
+from collections import defaultdict
+import json
+from math import log
+from copy import deepcopy
+
+
 class Unigram:
     def __init__(self, corpus=None, ntokens=30_000, cleaning=None, mult=None):
         if (corpus is not None):

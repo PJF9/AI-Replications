@@ -1,8 +1,6 @@
 from collections import defaultdict
 from tqdm import tqdm
 import json
-from math import log
-from copy import deepcopy
 
 
 class WordPiece:
