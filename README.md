@@ -1,2 +1,2 @@
 # AI-Replications
-This repository contains everything I've created from scratch, in the topic AI.
+This repository contains everything I've created from scratch, regarding AI.
