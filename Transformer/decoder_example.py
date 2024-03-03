@@ -61,12 +61,18 @@ with open("Hamlet.txt", "r") as f:
 
 ### Creating Vocabulary and Encoder/Decoder Functions
 vocab = sorted(list(set(text_ds)))
+if '_' in vocab:
+    pad_index = vocab.index('_')
+else:
+    vocab = '_' + vocab
+    pad_index = 0
+vocab_size = len(vocab)
 vocab_size = len(vocab)
 
 char_to_int = {ch: i for i, ch in enumerate(vocab)}
 int_to_char = {i: ch for i, ch in enumerate(vocab)}
 encoder = lambda s: [char_to_int[c] for c in s]
-decoder = lambda l: "".join([int_to_char[i] if i != 0 else '' for i in l])
+decoder = lambda l: "".join([int_to_char[i] if i != pad_index else '' for i in l])
 
 ### Tokenizing the Dataset
 tokenized_ds = torch.tensor(encoder(text_ds), dtype=torch.long, device=device) # `torch.int64`
@@ -113,7 +119,7 @@ for epoch in range(1, EPOCHS+1):
 
 
 ### Generating Text (exactly 1_000 characters)
-idx = torch.zeros((1, BLOCK_SIZE), dtype=torch.long, device=device)
+idx = torch.zeros((1, BLOCK_SIZE), dtype=torch.long, device=device) + pad_index
 
 with open("generated.txt", "w") as f:
     f.write(decoder(model.generate(idx, max_new_tokens=1_000)[0].tolist()))
