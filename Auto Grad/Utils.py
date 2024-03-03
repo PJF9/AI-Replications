@@ -1,6 +1,23 @@
 from graphviz import Digraph
 
 
+def topological_sorting(root):
+    topo = []
+    visited = set()
+
+    def build_topo(v):
+        if v not in visited:
+            visited.add(v)
+            
+            for child in v._prev:
+                build_topo(child)
+            
+            topo.append(v) # Each node is appended only if their children has being processed
+
+    build_topo(root)
+    return topo
+
+
 def trace(root):
     # Building a set of all nodes and edges in the graph
     nodes, edges = set(), set()
