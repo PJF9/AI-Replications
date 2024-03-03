@@ -107,7 +107,7 @@ class TransformerDecoder(nn.Module):
 
     def forward(self, idx, targets=None):
         token_embeddings = self.embedding_table(idx)                                                 # (B, T, EMBED_SIZE)
-        position_embeddings = self.position_embedding_table(torch.arange(self.block_size, device=self.device)) # (T, EMBED_SIZE)
+        position_embeddings = self.position_embedding_table(torch.arange(idx.shape[1], device=self.device)) # (T, EMBED_SIZE)
 
         x = token_embeddings + position_embeddings # (B, T, EMBED_SIZE)
 
