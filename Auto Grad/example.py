@@ -1,4 +1,4 @@
-from Utils import draw_dot, topological_sorting
+from Utils import draw_dot
 from Value import Value
 
 ## Defining the expression L
@@ -31,10 +31,6 @@ o = n.tanh() ; o.label = 'o'
 
 draw_dot(o)
 
-# Setting the derivative of `o`` with respect of `o`` to 1, in order to start the process
-o.grad = 1
-topo = topological_sorting(o)
-for n in reversed(topo):
-    n._backward()
+o.backward()
 
 draw_dot(o)
