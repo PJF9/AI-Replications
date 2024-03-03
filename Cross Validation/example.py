@@ -2,6 +2,12 @@ from ...Tokenizers.Wordpiece import WordPiece
 from model import TransformerEncoder
 from cross_validation import cross_validation
 
+import torch
+from torch import optim
+from torch.utils.data import Dataset
+
+import pandas as pd
+
 
 # Coverting the DataFrame into a Pytorch Dataset
 class FinancialNewsDataset(Dataset):
@@ -57,6 +63,7 @@ idx_to_classes = ds.idx_to_classes
 train_size = int(len(ds) * 0.95)
 train_ds = ds[:train_size]
 test_ds = ds[train_size:]
+
 
 EMBED_SIZE = 100
 NUM_LAYERS = 2
